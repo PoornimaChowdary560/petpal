@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Delivered Orders | PetZeno</title>
+  <link rel="icon" href="{% static 'images/WhatsApp Image 2025-05-23 at 15.31.30_2c12f390.jpg' %}" type="image/icon type">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --blue: #00c2cb;
+      --orange: #f4a988;
+      --black: #0f0f0f;
+      --white-fade: rgba(255, 255, 255, 0.2);
+      --card-bg: rgba(255, 255, 255, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--black);
+      color: #fff;
+      min-height: 100vh;
+      background-image: linear-gradient(to right, #0f0f0f, #1a1a1a);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: var(--blue);
+      margin-bottom: 40px;
+      text-shadow: 0 0 20px rgba(0,194,203,0.5);
+    }
+
+    .order-card {
+      background: var(--card-bg);
+      border: 1px solid var(--white-fade);
+      border-radius: 16px;
+      padding: 24px 30px;
+      margin: 25px auto;
+      max-width: 600px;
+      box-shadow: 0 10px 25px rgba(0, 194, 203, 0.1);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease;
+    }
+
+    .order-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      color: var(--orange);
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .info {
+      font-size: 1rem;
+      color: #ddd;
+      margin: 4px 0;
+    }
+
+    .info span {
+      color: var(--blue);
+      font-weight: 600;
+    }
+
+    .view-link {
+      color: var(--blue);
+      font-size: 0.95rem;
+      text-decoration: underline;
+      display: inline-block;
+      margin-top: 8px;
+    }
+
+    .delivered-msg {
+      margin-top: 16px;
+      color: #98f6ff;
+      background-color: rgba(0, 194, 203, 0.1);
+      padding: 10px 15px;
+      border-left: 4px solid var(--blue);
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .no-orders {
+      text-align: center;
+      color: #888;
+      font-size: 1.1rem;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Delivered Orders</h1>
+
+  {% for order in orders %}
+    <div class="order-card">
+      <div class="section-title">🐾 Pet Details</div>
+      <p class="info"><span>Name:</span> {{ order.pet.name }}</p>
+      <p class="info"><span>Breed:</span> {{ order.pet.breed }}</p>
+      <a class="view-link" href="{% url 'totalpetdetails' order.pet.id %}">View Pet Profile</a>
+
+      <div class="section-title" style="margin-top: 20px;">👤 Buyer Details</div>
+      <p class="info"><span>Name:</span> {{ order.buyer.name }}</p>
+      <p class="info"><span>Phone:</span> {{ order.buyer.phone }}</p>
+
+      <div class="delivered-msg">✅ Order successfully delivered to the buyer.</div>
+    </div>
+  {% empty %}
+    <p class="no-orders">📭 No delivered orders found.</p>
+  {% endfor %}
+
+</body>
+</html>

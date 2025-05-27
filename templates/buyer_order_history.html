@@ -1,0 +1,188 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PetZeno - Your Adoption Requests</title>
+  <link rel="icon" href="{% static 'images/WhatsApp Image 2025-05-23 at 15.31.30_2c12f390.jpg' %}" type="image/png"/>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+
+    h2 {
+      text-align: center;
+      color: #5CCCCC;
+      font-size: 36px;
+      margin-bottom: 50px;
+      text-shadow: 0 0 12px #5CCCCCaa;
+    }
+
+    .order-item {
+      padding: 25px 0;
+      border-bottom: 1px solid #333;
+      margin-bottom: 25px;
+    }
+
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
+
+    .order-header .pet-name {
+      color: #5CCCCC;
+      font-weight: 600;
+    }
+
+    .order-header a.view-link {
+      font-size: 15px;
+      text-decoration: none;
+      color: #F4A988;
+      transition: color 0.3s ease;
+    }
+
+    .order-header a.view-link:hover {
+      color: #ffb98d;
+    }
+
+    .pet-info {
+      font-size: 14px;
+      color: #ccc;
+      margin-bottom: 8px;
+    }
+
+    .status {
+      font-style: italic;
+      color: #9de1e1;
+      margin: 8px 0;
+    }
+
+    .payment-info {
+      color: #aefaf0;
+    }
+
+    .note {
+      font-size: 14px;
+      color: #888;
+    }
+
+    .rejected {
+      color: #ff6b6b;
+    }
+
+    .button {
+      background-color: #F4A988;
+      color: #0d0d0d;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin: 6px 8px 6px 0;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #f28e58;
+    }
+
+    .input-field input[type="number"] {
+      padding: 8px;
+      width: 180px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-right: 10px;
+      font-size: 14px;
+    }
+
+    .empty-message {
+      text-align: center;
+      color: #999;
+      margin-top: 60px;
+      font-size: 18px;
+    }
+
+    @media screen and (max-width: 600px) {
+      .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .order-header a.view-link {
+        margin-top: 6px;
+      }
+
+      .input-field input {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  {% if messages %}
+    {% for message in messages %}
+      <script>alert("{{ message }}");</script>
+    {% endfor %}
+  {% endif %}
+
+  <h2>Your Adoption Requests</h2>
+
+  {% for order in orders %}
+    <div class="order-item">
+      <div class="order-header">
+        <div class="pet-name">{{ order.pet.name }}</div>
+        <a class="view-link" href="{% url 'totalpetdetails' order.pet.id %}">View Details →</a>
+      </div>
+
+      <!-- Optional extra info -->
+      <div class="pet-info">Species: {{ order.pet.species }} · Age: {{ order.pet.age }}</div>
+
+      <p class="status">Status: {{ order.request_status|title }}</p>
+
+      {% if order.payment_status %}
+        <p class="payment-info">✅ Paid: ₹{{ order.payment_amount }}</p>
+        <p class="note"> Thank you for adopting!</p>
+
+      {% elif order.request_status == 'accepted' %}
+        <p class="note">You can't cancel the order or modify address at this stage.</p>
+        <form method="POST" action="{% url 'make_payment' order.id %}">
+          {% csrf_token %}
+          <div class="input-field">
+            <input type="number" name="amount" placeholder="Enter Amount" required />
+            <button type="submit" class="button">Pay Now</button>
+          </div>
+        </form>
+
+      {% elif order.request_status == 'rejected' %}
+        <p class="rejected">❌ Your adoption request was rejected.</p>
+
+      {% else %}
+        <p class="note">⏳ Waiting for seller to accept your request...</p>
+      {% endif %}
+
+      {% if order.request_status == 'pending' %}
+        <p class="note">Please add your delivery address or cancel the request if needed:</p>
+        <a class="button" href="{% url 'add_address' order.id %}">Add/Change Address</a>
+        <a class="button" href="{% url 'cancel_order' order.id %}" onclick="return confirm('Are you sure you want to cancel this order?');">Cancel Order</a>
+      {% endif %}
+    </div>
+  {% empty %}
+    <p class="empty-message">You don't have any adoption requests yet. Start exploring pets today!</p>
+  {% endfor %}
+
+</body>
+</html>

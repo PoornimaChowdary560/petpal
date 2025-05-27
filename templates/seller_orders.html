@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pending Requests | PetZeno</title>
+  <link rel="icon" href="{% static 'images/WhatsApp Image 2025-05-23 at 15.31.30_2c12f390.jpg' %}" type="image/icon type">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --blue: #00c2cb;
+      --orange: #f4a988;
+      --black: #0f0f0f;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --white-fade: rgba(255, 255, 255, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--black);
+      color: #fff;
+      min-height: 100vh;
+      background-image: linear-gradient(to right, #0f0f0f, #1a1a1a);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5rem;
+      color: var(--blue);
+      margin-bottom: 40px;
+      text-shadow: 0 0 20px rgba(0,194,203,0.5);
+    }
+
+    .request-card {
+      background: var(--card-bg);
+      border: 1px solid var(--white-fade);
+      border-radius: 16px;
+      padding: 24px 30px;
+      margin: 25px auto;
+      max-width: 600px;
+      box-shadow: 0 10px 25px rgba(0, 194, 203, 0.1);
+      backdrop-filter: blur(10px);
+      transition: transform 0.3s ease;
+    }
+
+    .request-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .section-title {
+      font-size: 1.2rem;
+      color: var(--orange);
+      margin-top: 10px;
+      margin-bottom: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .info {
+      font-size: 1rem;
+      color: #ddd;
+      margin: 5px 0;
+    }
+
+    .info span {
+      color: var(--blue);
+      font-weight: 600;
+    }
+
+    .view-link {
+      color: var(--blue);
+      font-size: 0.95rem;
+      text-decoration: underline;
+      display: inline-block;
+      margin-top: 8px;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      min-width: 100px;
+    }
+
+    .accept-btn {
+      background-color: var(--orange);
+      color: black;
+    }
+
+    .accept-btn:hover {
+      background-color: #ff9a6b;
+    }
+
+    .reject-btn {
+      background: transparent;
+      color: var(--orange);
+      border: 1px solid var(--orange);
+    }
+
+    .reject-btn:hover {
+      background-color: var(--orange);
+      color: black;
+    }
+
+    .no-data {
+      text-align: center;
+      color: #888;
+      font-size: 1.1rem;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 600px) {
+      .request-card {
+        padding: 20px;
+      }
+
+      .btn-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Pending Adoption Requests</h1>
+
+  {% for order in orders %}
+    <div class="request-card">
+      <div class="section-title">🐾 Pet Details</div>
+      <p class="info"><span>Name:</span> {{ order.pet.name }}</p>
+      <p class="info"><span>Breed:</span> {{ order.pet.breed }}</p>
+      <a class="view-link" href="{% url 'totalpetdetails' order.pet.id %}">View full pet profile</a>
+
+      <div class="section-title" style="margin-top: 20px;">👤 Buyer Details</div>
+      <p class="info"><span>Name:</span> {{ order.buyer.name }}</p>
+      <p class="info"><span>Phone:</span> {{ order.buyer.phone }}</p>
+
+      <div class="btn-row">
+        <form method="POST" action="{% url 'accept_request' order.id %}">
+          {% csrf_token %}
+          <button type="submit" class="btn accept-btn">Accept</button>
+        </form>
+        <form method="POST" action="{% url 'reject_request' order.id %}">
+          {% csrf_token %}
+          <button type="submit" class="btn reject-btn">Reject</button>
+        </form>
+      </div>
+    </div>
+  {% empty %}
+    <p class="no-data">📭 No pending adoption requests at the moment.</p>
+  {% endfor %}
+
+</body>
+</html>

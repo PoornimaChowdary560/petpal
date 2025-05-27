@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PetZeno | Contact Us</title>
+  <link rel="icon" href="{% static 'images/WhatsApp Image 2025-05-23 at 15.31.30_2c12f390.jpg' %}" type="image/png" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      width: 100%;
+      color: #fff;
+      background: url("{% static 'images/images (1).jpeg' %}") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .overlay {
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 50px;
+    }
+
+    .contact-box {
+      max-width: 650px;
+      background-color: transparent;
+      padding: 30px;
+      border-right: 5px solid #00ffff;
+      text-align: right;
+    }
+
+    .title {
+      font-size: 48px;
+      font-weight: bold;
+      color: #00ffff;
+      margin-bottom: 20px;
+    }
+
+    .contact-box p {
+      font-size: 18px;
+      line-height: 1.7;
+      color: #f0f0f0;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #FFA500;
+      margin-top: 25px;
+      margin-bottom: 10px;
+    }
+
+    .contact-details {
+      font-size: 17px;
+      color: #ddd;
+      line-height: 1.6;
+    }
+
+    .contact-details div {
+      margin-bottom: 8px;
+    }
+
+    .social-icons {
+      margin-top: 20px;
+    }
+
+    .social-icons a {
+      margin-left: 10px;
+      color: #00ffff;
+      text-decoration: none;
+      font-size: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .overlay {
+        flex-direction: column;
+        align-items: flex-end;
+        padding: 20px;
+      }
+
+      .title {
+        font-size: 32px;
+      }
+
+      .contact-box {
+        padding: 20px;
+        border-right: 3px solid #00ffff;
+        text-align: right;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="contact-box">
+      <div class="title">Contact Us</div>
+      <p>At PetZeno, we’re committed to helping every pet find a loving home. Whether you have a question, need help with adoption, or want to give feedback — we’re here for you!</p>
+      
+      <div class="section-title">Customer Support</div>
+      <div class="contact-details">
+        <div><strong>Email:</strong> support@petzeno.com</div>
+        <div><strong>Phone:</strong> +91 98765 43210</div>
+        <div><strong>Live Chat:</strong> Available in-app</div>
+      </div>
+
+      <div class="section-title">Head Office</div>
+      <div class="contact-details">
+        <div>123 Paw Street, Petville, Maharashtra, India</div>
+        <div><strong>Working Hours:</strong> Mon–Sat, 9:00 AM – 6:00 PM</div>
+      </div>
+
+      <div class="section-title">Follow Us</div>
+      <div class="social-icons">
+        <a href="#">Facebook</a> |
+        <a href="#">Instagram</a> |
+        <a href="#">Twitter</a> |
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

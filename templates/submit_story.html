@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Submit Your Story</title>
+   <link rel="icon" href="{% static 'images/WhatsApp Image 2025-05-23 at 15.31.30_2c12f390.jpg' %}" type="image/png" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    form {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 10px;
+      backdrop-filter: blur(4px);
+      width: 90%;
+      max-width: 500px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #00ffff;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background-color: #FFA500;
+      color: black;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #ffc04d;
+    }
+  </style>
+</head>
+<body>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h2>Submit Your Story</h2>
+    <label for="pet_name">Pet Name:</label>
+    <input type="text" name="pet_name" required>
+
+    <label for="owner_name">Owner Name:</label>
+    <input type="text" name="owner_name" required>
+
+    <label for="story">Your Story:</label>
+    <textarea name="story" rows="5" required></textarea>
+
+    <label for="image">Upload a Pet Image (optional):</label>
+    <input type="file" name="image" accept="image/*">
+
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>

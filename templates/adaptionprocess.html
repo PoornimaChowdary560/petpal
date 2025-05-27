@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PetZeno | Adoption Process</title>
+  <link rel="icon" href="{% static 'images/WhatsApp Image 2025-05-23 at 15.31.30_2c12f390.jpg' %}" type="image/png" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      width: 100%;
+      color: #fff;
+      background: url("{% static 'images/banner-3x2_Header-BG_Cat-02.jpg' %}") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .overlay {
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 50px;
+    }
+
+    .content {
+      max-width: 600px;
+      background-color: transparent;
+      padding: 30px;
+      border-left: 5px solid #00ffff;
+    }
+
+    .title {
+      font-size: 48px;
+      font-weight: bold;
+      color: #00ffff;
+      margin-bottom: 20px;
+    }
+
+    .content p {
+      font-size: 18px;
+      line-height: 1.7;
+      color: #f0f0f0;
+    }
+
+    ul {
+      margin-top: 15px;
+      padding-left: 20px;
+      color: #ddd;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .overlay {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+      }
+
+      .title {
+        font-size: 32px;
+      }
+
+      .content {
+        padding: 20px;
+        border-left: 3px solid #00ffff;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="content">
+      <div class="title">Adoption Process</div>
+      <p>Welcome to the PetZeno adoption process! Our goal is to ensure every pet finds a loving home. Here's how it works:</p>
+      <ul>
+        <li>Step 1: Browse available pets using our search or filter options.</li>
+        <li>Step 2: Click on your preferred pet to see full details.</li>
+        <li>Step 3: Submit an adoption request – our team will review it.</li>
+        <li>Step 4: Once approved, confirm the adoption and make the payment.</li>
+        <li>Step 5: Congratulations! Your pet will be delivered to your doorstep in 5 days.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PetZeno | Manage Pets</title>
+  <link rel="icon" href="{% static 'images/WhatsApp Image 2025-05-23 at 15.31.30_2c12f390.jpg' %}" type="image/icon type">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0b0c10;
+      color: white;
+      padding: 30px 20px;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 2.5rem;
+      color: #00c2cb;
+      margin-bottom: 40px;
+      text-shadow: 0 0 12px rgba(0, 194, 203, 0.3);
+    }
+
+    .pet-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .pet-box {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      width: 240px;
+      padding: 20px;
+      box-shadow: 0 8px 18px rgba(0, 194, 203, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .pet-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 194, 203, 0.2);
+    }
+
+    .pet-photo {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #00c2cb;
+    }
+
+    .pet-info {
+      font-size: 0.95rem;
+      color: #e2e2e2;
+      margin-bottom: 8px;
+    }
+
+    .pet-info strong {
+      color: #f4a988;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .button {
+      background-color: #f4a988;
+      color: #000;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #ffb88a;
+      box-shadow: 0 0 8px rgba(244, 169, 136, 0.5);
+    }
+
+    .button:disabled {
+      background-color: #777;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 600px) {
+      .pet-box {
+        width: 100%;
+        max-width: 340px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="title">View & Manage Your Pets</h1>
+
+  <div class="pet-container">
+    {% for pet in pets %}
+    <div class="pet-box">
+      <img src="{{ pet.photo.url }}" alt="{{ pet.name }}" class="pet-photo">
+      <div class="pet-info"><strong>Name:</strong> {{ pet.name }}</div>
+      <div class="pet-info"><strong>Breed:</strong> {{ pet.breed }}</div>
+
+      <div class="btn-group">
+        {% if pet.adoption_status == 'available' %}
+          <a class="button" href="{% url 'editpet' pet.id %}">Edit</a>
+        {% else %}
+          <button class="button" disabled>Edit</button>
+        {% endif %}
+        <a class="button" href="{% url 'deletepet' pet.id %}" onclick="return confirm('Are you sure you want to delete this pet?');">Delete</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% if messages %}
+    {% for message in messages %}
+    <script>
+      alert("{{ message }}");
+    </script>
+    {% endfor %}
+  {% endif %}
+</body>
+</html>

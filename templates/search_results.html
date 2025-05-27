@@ -1,0 +1,146 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Search Results | PetZeno</title>
+  <link rel="icon" href="{% static 'images/WhatsApp Image 2025-05-23 at 15.31.30_2c12f390.jpg' %}" type="image/png" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #0f0f0f;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+    }
+
+    h2 {
+      color: #00ffff;
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    li {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-left: 5px solid #FFA500;
+      margin-bottom: 20px;
+      padding: 20px 25px;
+      border-radius: 14px;
+      box-shadow: 0 2px 8px rgba(0, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    li:hover {
+      background-color: rgba(0, 255, 255, 0.1);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 255, 255, 0.2);
+    }
+
+    li strong {
+      color: #FFA500;
+      font-size: 20px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    li span {
+      color: #ccc;
+      font-size: 16px;
+    }
+
+    .no-results {
+      text-align: center;
+      color: #999;
+      font-size: 18px;
+      margin-top: 60px;
+    }
+
+    .back-button {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .back-button a {
+      padding: 12px 24px;
+      background-color: #00ffff;
+      color: #0f0f0f;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .back-button a:hover {
+      background-color: #00cccc;
+    }
+
+    @media (max-width: 600px) {
+      li {
+        padding: 16px;
+      }
+
+      li strong {
+        font-size: 18px;
+      }
+
+      li span {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Search Results</h2>
+
+    {% if pets %}
+      <ul>
+        {% for pet in pets %}
+          <a href="{% url 'totalpetdetails' pet.id %}">
+            <li>
+              <strong>{{ pet.name }}</strong>
+              <span>{{ pet.breed }} ({{ pet.species }}) — {{ pet.location }}</span>
+            </li>
+          </a>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="no-results">No pets found.</p>
+    {% endif %}
+
+    <div class="back-button">
+      <a href="{% url 'shome' %}">← Back to Home</a>
+    </div>
+  </div>
+
+</body>
+</html>

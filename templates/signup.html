@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetZeno - Register</title>
+    <link rel="icon" href="{% static 'images/WhatsApp Image 2025-05-23 at 15.31.30_2c12f390.jpg' %}" type="image/icon type">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0e0e0e;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: #1a1a1a;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
+            width: 360px;
+            text-align: center;
+            border: 1px solid rgba(255, 165, 0, 0.2); /* orange border tint */
+        }
+
+        .form-container h2 {
+            color: #ffa76e;
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            background-color: #2e2e2e;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        input::placeholder {
+            color: #aaa;
+        }
+
+        input:focus, select:focus {
+            outline: 2px solid #ffa76e;
+            background-color: #383838;
+        }
+
+        button {
+            background-color: #4ecdc4;
+            color: #000;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 15px;
+            margin-top: 10px;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #39b3ab;
+        }
+
+        p {
+            color: #999;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        a {
+            color: #4ecdc4;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #ffa76e;
+        }
+
+        .error {
+            color: #ff4d4d;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Register Here!</h2>
+
+        {% for message in messages %}
+            <p class="error">{{ message }}</p>
+        {% endfor %}
+
+        <form method="POST" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+            <input type="tel" name="phone" placeholder="+91XXXXXXXXXX" pattern="^\+91\d{10}$" required>
+
+            <select name="role" required>
+                <option value="buyer">Buyer</option>
+                <option value="seller">Seller</option>
+                <option value="both">Guest</option>
+                <option value="admin" disabled>Admin</option>
+            </select>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    </div>
+</body>
+</html>

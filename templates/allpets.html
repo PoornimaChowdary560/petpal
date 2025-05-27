@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetZeno</title>
+    <link rel="icon" href="{% static 'images/WhatsApp Image 2025-05-23 at 15.31.30_2c12f390.jpg' %}" type="image/icon type">
+    <style>
+        body {
+            background-color: #0d0d0d;
+            color: #f0f0f0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 30px;
+        }
+
+        h2 {
+            color:  #00BFFF;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .pet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .pet-card {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+
+        .pet-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 10px rgba(255, 165, 0, 0.5);
+        }
+
+        .pet-card h3 {
+            color:#FFA500 ;
+            margin: 0 0 10px;
+        }
+
+        .pet-card p {
+            margin: 4px 0;
+            color: #ccc;
+        }
+
+        .pet-card .cost {
+            color: #00ff99;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .pet-card a {
+            text-decoration: none;
+            color: #00BFFF;
+        }
+
+        .pet-card a:hover {
+            color: #FFA500;
+        }
+
+        .delete-link {
+            color: #FF6347;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .delete-link:hover {
+            color: #FF4500;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+        <h2>🐾 All Pets Available</h2>
+
+        {% if messages %}
+            {% for message in messages %}
+                <script>alert("{{ message }}");</script>
+            {% endfor %}
+        {% endif %}
+
+        <div class="pet-grid">
+            {% for pet in pets %}
+                {% if user.role == 'admin' %}
+                        <div class="pet-card">
+                            <a href="{% url 'totalpetdetails' pet.id %}">
+                                <h3>{{ pet.name }}</h3>
+                            </a>
+                            <p>Species: {{ pet.get_species_display }}</p>
+                            <p>Location: {{ pet.location }}</p>
+                            <p class="cost">${{ pet.cost }}</p>
+                            <a href="{% url 'deletepet' pet.id %}" class="delete-link" onclick="return confirm('Are you sure?');">Delete</a>
+                             </a>
+                        </div>
+        
+                {% else %}
+                    <div class="pet-card">
+                        <a href="{% url 'totalpetdetails' pet.id %}">
+                            <h3>{{ pet.name }}</h3>
+                        
+                        <p>Species: {{ pet.get_species_display }}</p>
+                        <p>Location: {{ pet.location }}</p>
+                        <p class="cost">${{ pet.cost }}</p>
+                        </a>
+                    </div>
+                {% endif %}
+            {% empty %}
+                <p>No pets available for adoption at the moment.</p>
+            {% endfor %}
+        </div>
+    {% endblock %}
+</body>
+</html>

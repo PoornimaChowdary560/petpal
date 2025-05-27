@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: petzeno
+    runtime: python
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+      python manage.py migrate
+    startCommand: gunicorn petpal.wsgi
+    envVars:
+      - key: DATABASE_URL
+        value: "mysql://root:yourpassword@shinkansen.proxy.rlwy.net:29668/railway"
+      - key: PYTHON_VERSION
+        value: "3.12.2"
+      - key: SECRET_KEY
+        value: "django-insecure-a-yb_#=a57!0t%&=u*0the$umi*b*j-ho(#sqxa--i16758$m6"

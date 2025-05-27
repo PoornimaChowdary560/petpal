@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetZeno - Orders</title>
+    <link rel="icon" href="{% static 'images/WhatsApp Image 2025-05-23 at 15.31.30_2c12f390.jpg' %}" type="image/icon type">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #0f0f0f; /* Dark background */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #e0e0e0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        h1.title {
+            text-align: center;
+            color: #ff9800; /* Light orange */
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+
+        .order-card {
+            background-color: #1a1a1a;
+            border-left: 5px solid #00bcd4; /* Light blue */
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            transition: transform 0.2s;
+        }
+
+        .order-card:hover {
+            transform: scale(1.01);
+        }
+
+        .section {
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: #00bcd4;
+            margin-bottom: 5px;
+        }
+
+        p {
+            margin: 3px 0;
+            font-size: 0.95rem;
+        }
+
+        a {
+            color: #ff9800;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .no-orders {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #888;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Pet Orders</h1>
+
+        {% for order in orders %}
+        <div class="order-card">
+            <div class="section">
+                <div class="section-title">Order ID</div>
+                <p>{{ order.id }}</p>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Pet Details</div>
+                <p><strong>Name:</strong> {{ order.pet.name }}</p>
+                <p><strong>Breed:</strong> {{ order.pet.breed }}</p>
+                <a href="{% url 'totalpetdetails' order.pet.id %}">View Details</a>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Buyer Information</div>
+                <p><strong>Name:</strong> {{ order.buyer.name }}</p>
+                <p><strong>Phone:</strong> {{ order.buyer.phone }}</p>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Seller Information</div>
+                <p><strong>Name:</strong> {{ order.seller.name }}</p>
+                <p><strong>Phone:</strong> {{ order.seller.phone }}</p>
+            </div>
+        </div>
+        {% empty %}
+            <p class="no-orders">No orders available.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PetZeno | Success Stories</title>
+  <link rel="icon" href="{% static 'images/WhatsApp Image 2025-05-23 at 15.31.30_2c12f390.jpg' %}" type="image/png" />
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url("{% static 'images/images (2).jpeg' %}") no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      padding: 60px 40px;
+      min-height: 100vh;
+    }
+
+    .title {
+      font-size: 48px;
+      color: #00ffff;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .intro {
+      font-size: 18px;
+      text-align: center;
+      color: #ccc;
+      margin-bottom: 40px;
+    }
+
+    .stories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .story-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid #00ffff;
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .story-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    .story-card h3 {
+      color: #FFA500;
+      margin-bottom: 5px;
+    }
+
+    .story-card p {
+      color: #ddd;
+      font-size: 15px;
+    }
+
+    .cta {
+      margin-top: 50px;
+      text-align: center;
+    }
+
+    .cta a {
+      background: #00ffff;
+      color: #000;
+      padding: 10px 20px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+      .title {
+        font-size: 36px;
+      }
+
+      .story-card img {
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="title">Success Stories</div>
+    <div class="intro">See how PetZeno changed lives. These heartwarming stories show the power of love, hope, and second chances.</div>
+
+    <div class="stories">
+      <!-- Static Stories -->
+      <div class="story-card">
+        <img src="{% static 'images/pet1.jpg' %}" alt="Happy Pet">
+        <h3>Bella & Ayesha</h3>
+        <p>“We found Bella through PetZeno, and she's brought so much joy into our home. Thank you for helping us find our perfect match!”</p>
+      </div>
+
+      <div class="story-card">
+        <img src="{% static 'images/pet2.jpg' %}" alt="Happy Pet">
+        <h3>Simba & Raj</h3>
+        <p>"Adopting Simba was the best decision I made. He’s more than a pet — he’s family now. Grateful for PetZeno's support."</p>
+      </div>
+
+      <div class="story-card">
+        <img src="{% static 'images/pet3.jpg' %}" alt="Happy Pet">
+        <h3>Luna & The Sharmas</h3>
+        <p>“PetZeno helped us complete our family. Luna is the most loving companion, and we can’t imagine life without her.”</p>
+      </div>
+
+      <!-- Dynamic Stories from backend -->
+      {% for story in stories %}
+      <div class="story-card">
+        <img src="{{ story.image.url }}" alt="Happy Pet">
+        <h3>{{ story.pet_name }} & {{ story.owner_name }}</h3>
+        <p>"{{ story.story }}"</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="cta">
+      <p>Have your own adoption story to share?</p>
+      <a href="{% url 'submit_story' %}">Submit Your Story</a>
+    </div>
+  </div>
+</body>
+</html>

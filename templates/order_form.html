@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Form | PetZeno</title>
+  <link rel="icon" href="{% static 'images/WhatsApp Image 2025-05-23 at 15.31.30_2c12f390.jpg' %}" type="image/png" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #0f0f0f;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .form-container {
+      background-color: rgba(255, 255, 255, 0.03);
+      padding: 30px 40px;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 4px 12px rgba(0, 255, 255, 0.1);
+    }
+
+    h2, h3 {
+      text-align: center;
+      color: #00ffff;
+      margin-bottom: 25px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin: 10px 0 5px;
+      color: #FFA500;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      padding: 10px 14px;
+      border: none;
+      border-radius: 8px;
+      background-color: #1a1a1a;
+      color: white;
+      outline: none;
+      font-size: 15px;
+      transition: background 0.3s;
+    }
+
+    input:focus {
+      background-color: #222;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 12px;
+      background-color: #00ffff;
+      color: #0f0f0f;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #00cccc;
+    }
+
+    @media (max-width: 600px) {
+      .form-container {
+        padding: 25px;
+      }
+
+      h2, h3 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Order Form</h2>
+    <form method="POST">
+      {% csrf_token %}
+
+      <label for="full_name">Full Name:</label>
+      <input type="text" id="full_name" name="full_name" required />
+
+      <label for="phone_number">Phone Number:</label>
+      <input type="text" id="phone_number" name="phone_number" required />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+
+      <h3>Delivery Address</h3>
+
+      <label for="street">Street:</label>
+      <input type="text" id="street" name="street" required />
+
+      <label for="city">City:</label>
+      <input type="text" id="city" name="city" required />
+
+      <label for="state">State:</label>
+      <input type="text" id="state" name="state" required />
+
+      <label for="zipcode">Zip Code:</label>
+      <input type="text" id="zipcode" name="zipcode" required />
+
+      <button type="submit">Submit Order</button>
+    </form>
+  </div>
+
+</body>
+</html>

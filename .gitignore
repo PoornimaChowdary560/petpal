@@ -1,0 +1,21 @@
+
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+
+# OS junk files
+.DS_Store
+
+# Environment variables
+.env
+
+# Compiled static assets from collectstatic
+staticfiles/
+
+# Media uploads (user uploads)
+media/
+
+# VS Code workspace settings
+.vscode/

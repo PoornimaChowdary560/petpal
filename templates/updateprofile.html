@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PetZeno | Update Profile</title>
+  <link rel="icon" href="{% static 'images/WhatsApp Image 2025-05-23 at 15.31.30_2c12f390.jpg' %}" type="image/png"/>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #0f0f0f, #1a1a1a);
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 36px;
+      color: #00c2cb;
+      margin-top: 40px;
+      text-shadow: 1px 1px 6px rgba(255, 255, 255, 0.2);
+    }
+
+    .form-container {
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 30px 20px;
+      border-radius: 15px;
+      
+      box-shadow: 0 0 20px rgba(248, 169, 23, 0.2);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input {
+      width: 85%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      background-color: #fff;
+      color: #000;
+    }
+
+    input:disabled {
+      background-color: #eaeaea;
+      color: #555;
+    }
+
+    button {
+      margin-top: 20px;
+      background-color: #222;
+      color: #fff;
+      border: none;
+      padding: 10px 25px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #444;
+    }
+
+    @media (max-width: 480px) {
+      .form-container {
+        width: 90%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>Update Your Profile</h2>
+  <div class="form-container">
+    <form method="post" action="{% url 'update_profile' %}">
+      {% csrf_token %}
+
+      <input type="text" name="name" value="{{ request.session.name }}" placeholder="Name" required>
+
+      <input type="text" name="phone" value="{{ request.session.phone }}" placeholder="Phone (+91XXXXXXXXXX)" pattern="^\+91\d{10}$" required>
+
+      <input type="email" name="email" value="{{ request.session.email }}" placeholder="Email" required>
+
+      <input type="text" value="{{ request.session.role }}" disabled>
+
+      <input type="password" name="password" value="{{ request.session.password }}" placeholder="Password" required>
+
+      <button type="submit">Update Profile</button>
+    </form>
+  </div>
+</body>
+</html>
