@@ -46,6 +46,11 @@ INSTALLED_APPS = [
     'petzeno',
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://web-production-1928.up.railway.app",
+]
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
