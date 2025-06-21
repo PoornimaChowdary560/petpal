@@ -1,6 +1,6 @@
 # 🐾 PetPal
 
-**PetPal** is a Django-based web application designed to facilitate pet adoption and fostering. It provides an intuitive platform for users to view pets, register, log in, and apply for adoption or foster care. The system also supports shelter staff in managing pet profiles and handling user requests.
+**PetPal** is a Django-based web application designed to facilitate pet adoption. It provides an intuitive platform for users to view pets, register, log in, and apply for adoption. The system also supports admin in managing pet profiles and handling user requests.
 
 ---
 
